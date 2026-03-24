@@ -4643,7 +4643,12 @@ var app = (function () {
           e.data.forEach((e) => {
             ((e.originalLabel = e.label), (e.label = e.name), (e.value = e.id));
           }),
-          n(18, (w = e.data)),
+          n(
+            18,
+            (w = e.data.sort((a, b) =>
+              (a.name || "").localeCompare(b.name || ""),
+            )),
+          ),
           O());
       },
       N = () => {
