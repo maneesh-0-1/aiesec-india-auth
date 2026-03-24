@@ -4656,14 +4656,7 @@ var app = (function () {
           ? n(10, (g.alignment = L.originalLabel), g)
           : n(10, (g.alignment = "Local Office (City)"), g));
         const sortedAlignments = (L.alignments || []).slice();
-        const isPlaceholder = (item) => {
-          const name = (item && (item.name || item.label || "")).toString();
-          return (
-            name === "Select City" ||
-            name === "Local Office (City)" ||
-            name === "Select"
-          );
-        };
+        const isPlaceholder = (item) => !item.id || item.id === '';
         sortedAlignments.sort((a, b) => {
           if (isPlaceholder(a) && !isPlaceholder(b)) return -1;
           if (isPlaceholder(b) && !isPlaceholder(a)) return 1;
@@ -4671,11 +4664,11 @@ var app = (function () {
         });
         n(
           19,
-          (S = sortedAlignments.map((e) => ({
+          (S = [...sortedAlignments.map((e) => ({
             label: e.value,
             value: e.id,
             alignment_id: e.alignment_id,
-          }))),
+          }))]),
         );
       },
       H = async (e) => {
