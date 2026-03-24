@@ -1,0 +1,13 @@
+{
+  "name": "@commutatus/aiesec-embeddable-auth",
+  "version": "1.4.3",
+  "description": "Embeddable authentication for AIESEC",
+  "scripts": {
+    "build": "npm run decrypt-main && rollup -c",
+    "dev": "npm run decrypt-main && rollup -c -w",
+    "start": "sirv public",
+    "encrypt-main": "cm-env encrypt main --env-file='src/env/main.json'",
+    "decrypt-main": "cm-env decrypt main --env-file='src/env/main.json'"
+  },
+  "license": "ISC"
+}
