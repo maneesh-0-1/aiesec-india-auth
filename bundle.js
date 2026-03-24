@@ -4652,7 +4652,7 @@ var app = (function () {
           : n(10, (g.alignment = "Local Office (City)"), g),
           n(
             19,
-            (S = L.alignments.sort((a, b) => a.name.localeCompare(b.name)).map((e) => ({
+            (S = L.alignments.sort((a, b) => (a.name || '').localeCompare(b.name || '')).map((e) => ({
               label: e.value,
               value: e.id,
               alignment_id: e.alignment_id,
