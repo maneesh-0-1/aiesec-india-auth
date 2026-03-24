@@ -4643,12 +4643,15 @@ var app = (function () {
           e.data.forEach((e) => {
             ((e.originalLabel = e.label), (e.label = e.name), (e.value = e.id));
           }),
-          n(
-            18,
-            (w = e.data.sort((a, b) =>
-              (a.name || "").localeCompare(b.name || ""),
-            )),
-          ),
+          (() => {
+            const sortedData = [...e.data].sort((a, b) => {
+              const isPlaceholder = (item) => item == null || item.id == null || item.id === "";
+              if (isPlaceholder(a) && !isPlaceholder(b)) return -1;
+              if (isPlaceholder(b) && !isPlaceholder(a)) return 1;
+              return (a.name || "").localeCompare(b.name || "");
+            });
+            n(18, (w = [...sortedData]));
+          })(),
           O());
       },
       N = () => {
