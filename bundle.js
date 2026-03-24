@@ -4654,15 +4654,29 @@ var app = (function () {
       N = () => {
         (L.originalLabel
           ? n(10, (g.alignment = L.originalLabel), g)
-          : n(10, (g.alignment = "Local Office (City)"), g),
-          n(
-            19,
-            (S = L.alignments.sort((a, b) => (a.name || '').localeCompare(b.name || '')).map((e) => ({
-              label: e.value,
-              value: e.id,
-              alignment_id: e.alignment_id,
-            }))),
-          ));
+          : n(10, (g.alignment = "Local Office (City)"), g));
+        const sortedAlignments = (L.alignments || []).slice();
+        const isPlaceholder = (item) => {
+          const name = (item && (item.name || item.label || "")).toString();
+          return (
+            name === "Select City" ||
+            name === "Local Office (City)" ||
+            name === "Select"
+          );
+        };
+        sortedAlignments.sort((a, b) => {
+          if (isPlaceholder(a) && !isPlaceholder(b)) return -1;
+          if (isPlaceholder(b) && !isPlaceholder(a)) return 1;
+          return (a.name || "").localeCompare(b.name || "");
+        });
+        n(
+          19,
+          (S = sortedAlignments.map((e) => ({
+            label: e.value,
+            value: e.id,
+            alignment_id: e.alignment_id,
+          }))),
+        );
       },
       H = async (e) => {
         const t = {
